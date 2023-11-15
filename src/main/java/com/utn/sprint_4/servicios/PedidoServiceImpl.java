@@ -155,14 +155,14 @@ public class PedidoServiceImpl extends BaseServiceImpl<Pedido,Long> implements P
         }
         return movimientosMonetarios;
     }
-    @Override
-    @Transactional
-    public List<Pedido> PedidosEntreFechas (PedidosEntreFechasDTO pedidosEntreFechasDTO) throws Exception {
-        try {
-            List<Pedido> pedidosEntreFechas = pedidoRepository.pedidosEntreFechas(pedidosEntreFechasDTO.getFechaInicio(), pedidosEntreFechasDTO.getFechaFin());
-            return pedidosEntreFechas;
-        } catch (Exception e) {
-            throw new Exception(e.getMessage());
-        }
-    }
+    //@Override
+    //@Transactional
+    //public List<Pedido> PedidosEntreFechas (PedidosEntreFechasDTO pedidosEntreFechasDTO) throws Exception {
+    //    try {
+    //        List<Pedido> pedidosEntreFechas = pedidoRepository.pedidosEntreFechas(pedidosEntreFechasDTO.getFechaInicio(), pedidosEntreFechasDTO.getFechaFin());
+    //        return pedidosEntreFechas;
+    //    } catch (Exception e) {
+    //        throw new Exception(e.getMessage());
+    //    }
+    //}
 }
