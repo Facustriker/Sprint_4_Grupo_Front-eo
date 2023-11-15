@@ -30,6 +30,6 @@ public interface PedidoService extends BaseService<Pedido,Long>{
     List<Pedido> searchNativoPedidosEstado(EstadoPedido estado, Pageable pageable) throws Exception;
 
     List<MovimientosMonetariosDTO> buscarMovimientosMonetarios(MovimientosMonetariosDTO movimientosMonetariosDTO) throws Exception;
-List<Pedido> PedidosEntreFechas(PedidosEntreFechasDTO pedidosEntreFechasDTO) throws Exception;
-
+    //List<Pedido> PedidosEntreFechas(PedidosEntreFechasDTO pedidosEntreFechasDTO) throws Exception;
+    //List<CarritoComprasDTO> mostrarCarrito(String nroPedido) throws Exception;
 }
