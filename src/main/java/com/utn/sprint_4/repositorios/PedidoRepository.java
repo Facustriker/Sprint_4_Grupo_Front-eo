@@ -54,4 +54,14 @@ public interface PedidoRepository extends BaseRepository<Pedido,Long> {
     List<Pedido> listaPedidosCliente(@Param("legajo") String legajo);
 
 
+    @Query(value = "SELECT * FROM pedido WHERE pedido.estado LIKE %:estado% ",
+            nativeQuery = true)
+    List<Pedido> searchNativoPedidosEstado(@Param("estado") EstadoPedido estado, Pageable pageable);
+
+    /@Query(value = "SELECT * FROM pedido WHERE pedi")/
+
+    @Query("SELECT p FROM Pedido p WHERE p.fecha BETWEEN :fechaInicio AND :fechaFin")
+    List<Pedido> pedidosEntreFechas(@Param("fechaInicio") java.util.Date fechaInicio, @Param("fechaFin") java.util.Date fechaFin);
+
+
 }
