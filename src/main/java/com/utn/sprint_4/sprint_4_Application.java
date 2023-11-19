@@ -298,6 +298,7 @@ public class sprint_4_Application {
                     .telefono("2617223459")
                     .email("juansito@gmail.com")
                     .password("123")
+                    .legajo("4500")
                     .fechaNacimiento("1998/09/18")
                     .fechaAlta(fecha)
                     .fechaBaja(fecha2)

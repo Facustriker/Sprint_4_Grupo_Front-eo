@@ -51,7 +51,6 @@ public class Persona extends Base implements UserDetails {
 
     @NotNull
     @Column(name = "legajo", unique = true)
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private String legajo;
 
     @Column(name = "fecha_alta")
