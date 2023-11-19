@@ -12,6 +12,7 @@ public class AuthController {
 
     private final AuthService authService;
 
+    @CrossOrigin(origins = "*")
     @PostMapping(value = "/login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request){
         return ResponseEntity.ok(authService.login(request));
@@ -21,12 +22,5 @@ public class AuthController {
     public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request){
         return ResponseEntity.ok(authService.register(request));
     }
-
-
-    @PostMapping(value = "/registerUser")
-    public ResponseEntity<AuthResponse> registerUser(@RequestBody UserRegisterRequest request){
-        return ResponseEntity.ok(authService.registerUser(request));
-    }
-
 
 }

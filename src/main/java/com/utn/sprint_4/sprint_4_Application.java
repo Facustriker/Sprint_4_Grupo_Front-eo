@@ -299,6 +299,7 @@ public class sprint_4_Application {
                     .email("yoSoyDeBoca@gmail.com")
                     .password("1234ABCD?")
                     .legajo("48755")
+                    .fechaNacimiento("2001/05/29")
                     .fechaAlta(fecha)
                     .fechaBaja(fecha2)
                     .fechaModificacion(fecha3)

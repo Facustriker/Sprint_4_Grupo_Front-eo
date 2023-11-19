@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface PersonaRepository extends BaseRepository<Persona, Long>{
@@ -68,8 +69,19 @@ public interface PersonaRepository extends BaseRepository<Persona, Long>{
     @Query(value = "Select c FROM Persona c WHERE c.legajo LIKE %:legajo% ")
     List<Persona> buscarPorLegajo(@Param("legajo")  String legajo);
 
+    //Listado de Clientes Administrador
 
+    @Query(value = "Select * FROM Persona WHERE Persona.rol = 1 ",
+            nativeQuery = true
+    )
+    List<Persona> ListaClientesAdm();
+
+
+    Optional<Persona> findByEmail(String email);
 }
+
+
+
 
 
 

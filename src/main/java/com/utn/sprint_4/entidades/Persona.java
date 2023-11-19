@@ -5,8 +5,12 @@ import com.utn.sprint_4.enumeraciones.Rol;
 import jakarta.persistence.*;
 import lombok.*;
 import org.antlr.v4.runtime.misc.NotNull;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +22,7 @@ import java.util.List;
 @Setter
 @Builder
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Persona extends Base {
+public class Persona extends Base implements UserDetails {
 
     @Column(name = "nombre")
     @Temporal(TemporalType.TIMESTAMP)
@@ -30,6 +34,7 @@ public class Persona extends Base {
 
     @Column(name = "rol")
     @Temporal(TemporalType.TIMESTAMP)
+    @Enumerated(EnumType.STRING)
     private Rol rol;
 
     @Column(name = "email")
@@ -45,7 +50,7 @@ public class Persona extends Base {
     private String telefono;
 
     @NotNull
-    @Column(name = "legajo", nullable = false, unique = true)
+    @Column(name = "legajo", unique = true)
     private String legajo;
 
     @Column(name = "fecha_alta")
@@ -62,6 +67,9 @@ public class Persona extends Base {
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(pattern = "yyyy/MM/dd")
     private Date fechaBaja;
+
+    @Column(name = "fecha_nacimiento")
+    private String fechaNacimiento;
 
     //Relacion Persona -1-------1-> Usuario
     @OneToOne(cascade = CascadeType.ALL)
@@ -88,4 +96,37 @@ public class Persona extends Base {
         domicilios.add(d);
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority((rol.name())));
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    public UserDetails orElseThrow() {
+        return null;
+    }
 }

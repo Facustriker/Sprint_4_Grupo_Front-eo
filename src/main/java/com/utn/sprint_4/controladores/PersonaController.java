@@ -1,5 +1,6 @@
 package com.utn.sprint_4.controladores;
 
+import com.utn.sprint_4.dtos.ListaClientesDTO;
 import com.utn.sprint_4.dtos.ModificarEmpleadoDTO;
 import com.utn.sprint_4.entidades.Persona;
 import com.utn.sprint_4.servicios.PersonaServiceImpl;
@@ -75,6 +76,24 @@ public class PersonaController extends BaseControllerImpl<Persona, PersonaServic
     public ResponseEntity<?> buscarPorLegajo (String legajo){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(servicio.buscarPorLegajo(legajo));
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(("{\"error\":\""+e.getMessage()+"\"}"));
+        }
+    }
+
+    @GetMapping("/ListaClientesAdm")
+    public ResponseEntity<?> ListaClientesAdm(ListaClientesDTO listaClientesDTO){
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(servicio.ListaClientesAdm(listaClientesDTO));
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(("{\"error\":\""+e.getMessage()+"\"}"));
+        }
+    }
+
+    @GetMapping("/encontrarPorEmail")
+    public ResponseEntity<?> getByEmail(String email){
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(servicio.getByEmail(email));
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(("{\"error\":\""+e.getMessage()+"\"}"));
         }

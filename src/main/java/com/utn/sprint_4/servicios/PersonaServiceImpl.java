@@ -1,5 +1,6 @@
 package com.utn.sprint_4.servicios;
 
+import com.utn.sprint_4.dtos.ListaClientesDTO;
 import com.utn.sprint_4.dtos.ModificarEmpleadoDTO;
 import com.utn.sprint_4.dtos.PersonaDTO;
 import com.utn.sprint_4.dtos.RankingPersonasDTO;
@@ -145,5 +146,40 @@ public class PersonaServiceImpl extends BaseServiceImpl<Persona,Long> implements
             throw new Exception(e.getMessage());
         }
     }
+
+
+    // Ver lista de Clientes como Administrador
+    @Override
+    public List<ListaClientesDTO> ListaClientesAdm(ListaClientesDTO listaClientesDTO) throws Exception {
+        try {
+            List<Persona> personas = personaRepository.ListaClientesAdm();
+            List<ListaClientesDTO> clienteDTO = new ArrayList<>();
+            for (Persona persona : personas) {
+                ListaClientesDTO auxDTO = new ListaClientesDTO();
+                auxDTO.setApellido(persona.getApellido());
+                auxDTO.setNombre(persona.getNombre());
+                auxDTO.setEmail(persona.getEmail());
+                auxDTO.setRol(persona.getRol());
+                auxDTO.setTelefono(persona.getTelefono());
+                clienteDTO.add(auxDTO);
+            }
+            return clienteDTO;
+        }catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    @Override
+    public Persona getByEmail(String email) throws Exception {
+        try {
+            Persona p = personaRepository.findByEmail(email).get();
+            return p;
+        }catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
+
+
 
 }

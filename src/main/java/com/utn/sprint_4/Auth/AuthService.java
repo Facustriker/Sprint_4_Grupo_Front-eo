@@ -2,7 +2,11 @@ package com.utn.sprint_4.Auth;
 
 import com.utn.sprint_4.JWT.JwtService;
 import com.utn.sprint_4.User.*;
+import com.utn.sprint_4.entidades.Domicilio;
 import com.utn.sprint_4.entidades.Persona;
+import com.utn.sprint_4.entidades.Usuario;
+import com.utn.sprint_4.enumeraciones.Rol;
+import com.utn.sprint_4.repositorios.PersonaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,15 +18,14 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthService {
 
-    private final UserRepository userRepository;
-    private final UsuarioPersonaRepository usuarioPersonaRepository;
+    private final PersonaRepository personaRepository;
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
 
     public AuthResponse login(LoginRequest request) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-        UserDetails user = userRepository.findByUsername(request.getUsername()).orElseThrow();
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+        UserDetails user = personaRepository.findByEmail(request.getEmail()).orElseThrow();
         String token = jwtService.getToken(user);
         return AuthResponse.builder()
                 .token(token)
@@ -31,41 +34,31 @@ public class AuthService {
 
     public AuthResponse register(RegisterRequest request) {
 
-        User user = User.builder()
-                .firstname(request.getFirstname())
-                .lastname(request.getLastname())
-                .username(request.getUsername())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .email(request.getEmail())
-                .role(Role.USER)
+        Domicilio domicilio = Domicilio.builder()
+                .calle(request.getDireccion())
+                .localidad(request.getDepartamento())
                 .build();
 
-        userRepository.save(user);
-
-        return AuthResponse.builder()
-                .token(jwtService.getToken(user))
+        Usuario usuario = Usuario.builder()
+                .username(request.getUsername())
                 .build();
 
-
-    }
-
-    public AuthResponse registerUser(UserRegisterRequest request) {
-
-        UsuarioPersona persona = UsuarioPersona.builder()
-                .firstname(request.getFirstname())
-                .lastname(request.getLastname())
-                .username(request.getUsername())
+        Persona persona = Persona.builder()
+                .nombre(request.getFirstname())
+                .apellido(request.getLastname())
                 .telefono(request.getTelefono())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .repeatPassword(passwordEncoder.encode(request.getRepeatPassword()))
                 .email(request.getEmail())
-                .direccion(request.getDireccion())
-                .departamento(request.getDepartamento())
                 .fechaNacimiento(request.getFechaNacimiento())
-                .role(Role.USER)
+                .rol(Rol.CLIENTE)
                 .build();
 
-        usuarioPersonaRepository.save(persona);
+
+        persona.AgregarDomicilios(domicilio);
+        persona.setUsuario(usuario);
+
+
+        personaRepository.save(persona);
 
         return AuthResponse.builder()
                 .token(jwtService.getToken(persona))
