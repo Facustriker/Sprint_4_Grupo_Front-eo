@@ -37,12 +37,19 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authRequest ->
                         authRequest
 
-                                .requestMatchers(new AntPathRequestMatcher("/auth/**")).permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/api/v1/**")).permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/api/v2/**")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/auth/register")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/auth/login")).hasAnyAuthority("ADMINISTRADOR", "COCINERO", "DELIVERY", "CLIENTE")
+                                .requestMatchers(new AntPathRequestMatcher("/api/v1/pedidos/**")).hasAnyAuthority("ADMINISTRADOR", "COCINERO", "DELIVERY")
+                                .requestMatchers(new AntPathRequestMatcher("/api/v1/personas/**")).hasAnyAuthority("ADMINISTRADOR")
+                                .requestMatchers(new AntPathRequestMatcher("/api/v1/usuarios/**")).hasAnyAuthority("ADMINISTRADOR")
+                                .requestMatchers(new AntPathRequestMatcher("/api/v1/rubroArticulo/**")).hasAnyAuthority("ADMINISTRADOR", "COCINERO")
+                                .requestMatchers(new AntPathRequestMatcher("/api/v1/unidadMedida/**")).hasAnyAuthority("ADMINISTRADOR", "COCINERO")
+                                .requestMatchers(new AntPathRequestMatcher("/api/v1/facturas/**")).hasAnyAuthority("ADMINISTRADOR")
+                                .requestMatchers(new AntPathRequestMatcher("/api/v1/ArticuloManufacturado/**")).hasAnyAuthority("ADMINISTRADOR", "COCINERO")
+                                .requestMatchers(new AntPathRequestMatcher("/api/v1/ArticuloInsumo/**")).hasAnyAuthority("ADMINISTRADOR", "COCINERO")
                                 .requestMatchers(PathRequest.toH2Console()).permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/api/v1/demoAdmin/**")).hasAuthority("ADMIN")
-                                .requestMatchers(new AntPathRequestMatcher("/api/v1/demoUser/**")).hasAuthority("USER")
+                                .requestMatchers(new AntPathRequestMatcher("/api/v1/demoAdmin/**")).hasAuthority("ADMINISTRADOR")
+                                .requestMatchers(new AntPathRequestMatcher("/api/v1/demoUser/**")).hasAuthority("CLIENTE")
                 )
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable)) //H2
                 .sessionManagement(sessionManager->

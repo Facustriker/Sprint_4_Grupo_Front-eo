@@ -2,6 +2,7 @@ package com.utn.sprint_4.servicios;
 
 import com.utn.sprint_4.dtos.ListaPedidosClienteDTO;
 import com.utn.sprint_4.dtos.ListaPedidosClienteFiltroDTO;
+import com.utn.sprint_4.dtos.MovimientosMonetariosDTO;
 import com.utn.sprint_4.dtos.RankingPersonasDTO;
 import com.utn.sprint_4.entidades.Domicilio;
 import com.utn.sprint_4.entidades.Pedido;

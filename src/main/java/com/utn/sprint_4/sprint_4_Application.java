@@ -296,14 +296,13 @@ public class sprint_4_Application {
                     .nombre("Juan")
                     .apellido("Marquez")
                     .telefono("2617223459")
-                    .email("yoSoyDeBoca@gmail.com")
-                    .password("1234ABCD?")
-                    .legajo("48755")
-                    .fechaNacimiento("2001/05/29")
+                    .email("juansito@gmail.com")
+                    .password("123")
+                    .fechaNacimiento("1998/09/18")
                     .fechaAlta(fecha)
                     .fechaBaja(fecha2)
                     .fechaModificacion(fecha3)
-                    .rol(Rol.CLIENTE)
+                    .rol(Rol.DELIVERY)
                     .build();
 
             NotaCredito nota1 = NotaCredito.builder()

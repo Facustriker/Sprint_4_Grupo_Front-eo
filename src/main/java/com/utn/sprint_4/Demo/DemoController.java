@@ -20,7 +20,7 @@ public class DemoController {
     @PostMapping(value = "demoAdmin")
     public String welcomeAdmin()
     {
-        return "Hola, te has autenticado con exito";
+        return "Hola, te has autenticado con exito como Administrador";
     }
 
 }

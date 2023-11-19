@@ -1,7 +1,6 @@
 package com.utn.sprint_4.Auth;
 
 import com.utn.sprint_4.JWT.JwtService;
-import com.utn.sprint_4.User.*;
 import com.utn.sprint_4.entidades.Domicilio;
 import com.utn.sprint_4.entidades.Persona;
 import com.utn.sprint_4.entidades.Usuario;
@@ -57,6 +56,12 @@ public class AuthService {
         persona.AgregarDomicilios(domicilio);
         persona.setUsuario(usuario);
 
+
+        if("admin@gmail.com".equals(persona.getEmail())){
+            persona.setRol(Rol.ADMINISTRADOR);
+        }else{
+            persona.setRol(Rol.CLIENTE);
+        }
 
         personaRepository.save(persona);
 
