@@ -110,4 +110,59 @@ public class PedidoServiceImpl extends BaseServiceImpl<Pedido,Long> implements P
             throw new Exception(e.getMessage());
         }
     }
+
+
+
+
+
+    @Override
+    public List<Pedido> searchNativoPedidosEstado(EstadoPedido estado, Pageable pageable) throws Exception {
+        try{
+            List<Pedido> pedidos = pedidoRepository.searchNativoPedidosEstado(estado, pageable);
+            return pedidos;
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    //Movimientos monetarios
+    public int calcularIngreso(Pedido pedido) {
+        int ingreso = pedido.getTotal() - pedido.getTotalCosto();
+        return ingreso;
+    }
+
+    @Transactional
+    public List<MovimientosMonetariosDTO> buscarMovimientosMonetarios (MovimientosMonetariosDTO movimientosMonetariosDTO) throws Exception {
+        List<MovimientosMonetariosDTO> movimientosMonetarios = new ArrayList<>();
+
+        try {
+            List<Pedido> pedidos = pedidoRepository.findAll();
+
+            for (Pedido pedido : pedidos) {
+                MovimientosMonetariosDTO movimientoMonetario = new MovimientosMonetariosDTO();
+                movimientoMonetario.setNroPedido(pedido.getId().intValue());
+                movimientoMonetario.setTotal(pedido.getTotal());
+                movimientoMonetario.setTotalCosto(pedido.getTotalCosto());
+
+                // Calcula el Costo Total con la función calcularIngreso
+                int ingreso = calcularIngreso(pedido);
+                movimientoMonetario.setIngreso(ingreso);
+
+                movimientosMonetarios.add(movimientoMonetario);
+            }
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+        return movimientosMonetarios;
+    }
+    //@Override
+    //@Transactional
+    //public List<Pedido> PedidosEntreFechas (PedidosEntreFechasDTO pedidosEntreFechasDTO) throws Exception {
+    //    try {
+    //        List<Pedido> pedidosEntreFechas = pedidoRepository.pedidosEntreFechas(pedidosEntreFechasDTO.getFechaInicio(), pedidosEntreFechasDTO.getFechaFin());
+    //        return pedidosEntreFechas;
+    //    } catch (Exception e) {
+    //        throw new Exception(e.getMessage());
+    //    }
+    //}
 }

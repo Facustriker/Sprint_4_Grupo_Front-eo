@@ -92,4 +92,30 @@ public class PedidoController extends BaseControllerImpl<Pedido, PedidoServiceIm
     }
 
 
+
+    @GetMapping("/listaPedidosEstado")
+    public ResponseEntity<?> searchNativoPedidosEstado(@RequestParam EstadoPedido estado, Pageable pageable){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(servicio.searchNativoPedidosEstado(estado, pageable));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(("{\"error\": \"" + e.getMessage() + "\"}"));
+        }
+    }
+    @GetMapping("/movimientoMonetario")
+    public ResponseEntity<?> buscarMovimientosMonetarios(@RequestBody MovimientosMonetariosDTO movimientosMonetariosDTO){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(servicio.buscarMovimientosMonetarios(movimientosMonetariosDTO));
+        }catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(("{\"error\": \"" + e.getMessage() + "\"}"));
+        }
+    }
+    //@GetMapping("/pedidoEntreFechas")
+    //public ResponseEntity<?> pedidosEntreFechas(@RequestBody PedidosEntreFechasDTO pedidosEntreFechasDTO){
+    //    try{
+    //        return ResponseEntity.status(HttpStatus.OK).body(servicio.PedidosEntreFechas(pedidosEntreFechasDTO));
+    //    }catch (Exception e) {
+    //        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(("{\"error\": \"" + e.getMessage() + "\"}"));
+    //    }
+    //}
+
 }
