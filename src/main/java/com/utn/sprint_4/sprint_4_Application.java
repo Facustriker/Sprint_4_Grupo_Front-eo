@@ -21,6 +21,9 @@ public class sprint_4_Application {
     @Autowired
     private PersonaRepository personaRepository;
 
+     @Autowired
+    private RubroArticuloInsumoRepository rubroArticuloInsumoRepository;
+
     public static void main(String[] args) {
         SpringApplication.run(sprint_4_Application.class, args);
         System.out.println("Hola, estoy andando bien");
@@ -70,6 +73,13 @@ public class sprint_4_Application {
 
             RubroArticuloInsumo rubroArticuloInsumo2 = RubroArticuloInsumo.builder()
                     .denominacion("Verdura")
+                    .fechaAlta(fecha)
+                    .fechaBaja(fecha2)
+                    .fechaModificacion(fecha3)
+                    .build();
+
+             RubroArticuloInsumo rubroArticuloInsumo3 = RubroArticuloInsumo.builder()
+                    .denominacion("Lacteo")
                     .fechaAlta(fecha)
                     .fechaBaja(fecha2)
                     .fechaModificacion(fecha3)
@@ -306,6 +316,20 @@ public class sprint_4_Application {
                     .rol(Rol.DELIVERY)
                     .build();
 
+            Persona persona1 = Persona.builder()
+                    .nombre("Juan")
+                    .apellido("Marquez")
+                    .telefono("2617223459")
+                    .email("yoshixd444@gmail.com")
+                    .password("1234")
+                    .legajo("45000")
+                    .fechaNacimiento("1998/09/18")
+                    .fechaAlta(fecha)
+                    .fechaBaja(fecha2)
+                    .fechaModificacion(fecha3)
+                    .rol(Rol.ADMINISTRADOR)
+                    .build();
+            
             NotaCredito nota1 = NotaCredito.builder()
                     .montoTotal(7000)
                     .motivoAnulacion("Cancelado por cliente")
@@ -381,18 +405,16 @@ public class sprint_4_Application {
             detArtManu3.setArticuloInsumo(artIns3);
 
             artIns1.setRubroArticuloInsumo(rubroArticuloInsumo);
-            artIns2.setRubroArticuloInsumo(rubroArticuloInsumo);
-            artIns3.setRubroArticuloInsumo(rubroArticuloInsumo);
-            artIns1.setRubroArticuloInsumo(rubroArticuloInsumo2);
             artIns2.setRubroArticuloInsumo(rubroArticuloInsumo2);
-            artIns3.setRubroArticuloInsumo(rubroArticuloInsumo2);
+            artIns3.setRubroArticuloInsumo(rubroArticuloInsumo);
             artIns1.setUnidadMedida(unidadMedida);
             artIns2.setUnidadMedida(unidadMedida);
             artIns3.setUnidadMedida(unidadMedida);
 
 
             personaRepository.save(persona);
-
+            personaRepository.save(persona1);
+            rubroArticuloInsumoRepository.save(rubroArticuloInsumo3);
 
         };
     }
