@@ -46,6 +46,7 @@ public class SecurityConfig {
                                 .requestMatchers(new AntPathRequestMatcher("/api/v1/unidadMedida/**")).hasAnyAuthority("ADMINISTRADOR", "COCINERO")
                                 .requestMatchers(new AntPathRequestMatcher("/api/v1/facturas/**")).hasAnyAuthority("ADMINISTRADOR")
                                 .requestMatchers(new AntPathRequestMatcher("/api/v1/rubroArticuloManufacturado/**")).hasAnyAuthority("ADMINISTRADOR")
+                                .requestMatchers(new AntPathRequestMatcher("/api/v1/ArticuloInsumo/**")).hasAnyAuthority("ADMINISTRADOR", "COCINERO")
                                 .requestMatchers(PathRequest.toH2Console()).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/api/v1/demoAdmin/**")).hasAuthority("ADMINISTRADOR")
                                 .requestMatchers(new AntPathRequestMatcher("/api/v1/demoUser/**")).hasAuthority("CLIENTE")
